@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import TheBooks from '@/components/TheBooks.vue';
-import TheSignin from '@/components/TheSignin.vue';
-import TheSignup from '@/components/TheSignup.vue';
-import TheWords from '@/components/TheWords.vue';
-import TheProfile from '@/components/TheProfile.vue'
+import TheBooks from '@/views/TheBooks.vue';
+import TheSignin from '@/views/TheSignin.vue';
+import TheSignup from '@/views/TheSignup.vue';
+import TheWords from '@/views/TheWords.vue';
+import TheProfile from '@/views/TheProfile.vue'
 const routes = [
   {
     path: '/books',
