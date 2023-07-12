@@ -21,6 +21,15 @@
       v-model="isValid"
       class="pa-4 pt-6"
     >
+    <v-alert
+      v-model="error"
+      class="mb-4"
+      density="compact"
+      type="warning"
+      title="Ошибка"
+      :text="error"
+    >
+    </v-alert>
       <v-text-field
         prepend-icon="mdi mdi-lock"
         v-model="password"
@@ -77,7 +86,7 @@
       </v-btn>
       <v-spacer></v-spacer>
       <v-btn
-        :disabled="!isValid"
+        :disabled="!isValid || processing"
         :loading="isLoading"
         color="deep-purple-accent-4"
         @click.prevent="signup"
@@ -146,7 +155,20 @@
         }
     },
     computed: {
-        
+        error() {
+          return this.$store.getters.getError
+        },
+        processing() {
+          return this.$store.getters.getProcessing
+        },
+        isUserAuth() {
+          return this.$store.getters.getUserAuth
+        }
+    },
+    watch: {
+      isUserAuth(value) {
+        if (value) this.$router.push('/books')
+      }
     }
   }
 </script>

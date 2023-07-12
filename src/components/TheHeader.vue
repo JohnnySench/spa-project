@@ -14,7 +14,7 @@
                     :title="item.title" 
                     :value="item.route">
                 </v-list-item>
-        </v-list>
+            </v-list>
         </v-navigation-drawer>
         <v-toolbar color="primary">
             <v-toolbar-items class="hidden-md-and-up">

@@ -8,23 +8,28 @@ export default {
        }
     },
     getters: {
+        getUserAuth: (state) => state.user.isAuth
     },
     mutations: {
+        SET_USER(state, payload) {
+            state.user.isAuth = true;
+            state.user.uid = payload;
+        }
     },
     actions: {
         SIGNUP({commit}, payload) {
+            commit('SET_PROCESSING', true)
             const auth = getAuth();
             createUserWithEmailAndPassword(auth, payload.email, payload.password)
             .then((userCredential) => {
-                console.log(userCredential);
-                const user = userCredential.user;
-                // ...
+                commit('SET_PROCESSING', false)
+                commit('SET_USER', userCredential.user.uid)
+                console.log(userCredential.user.uid);
             })
             .catch((error) => {
+                commit('SET_PROCESSING', false)
+                commit('SET_ERROR', error.message)
                 console.log(error.message);
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // ..
             });
         }
     }
