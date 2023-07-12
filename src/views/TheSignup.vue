@@ -1,8 +1,8 @@
 <template>
     <v-card
-    class="mx-auto mt-10"
-    style="max-width: 450px;"
-  >
+      class="mx-auto mt-10"
+      style="max-width: 450px;"
+    >
     <v-toolbar
       color="deep-purple-accent-4"
       cards
@@ -31,7 +31,7 @@
     >
     </v-alert>
       <v-text-field
-        prepend-icon="mdi mdi-lock"
+        prepend-icon="mdi-lock-outline"
         v-model="password"
         :rules="[rules.password, rules.length(6)]"
         variant="filled"
@@ -42,14 +42,14 @@
         type="password"
       ></v-text-field>
       <v-text-field
-        prepend-icon="mdi mdi-cellphone"
+        prepend-icon="mdi-cellphone"
         v-model="phone"
         variant="filled"
         color="deep-purple"
         label="Номер телефона"
       ></v-text-field>
       <v-text-field
-        prepend-icon="mdi mdi-email-variant"
+        prepend-icon="mdi-email-outline"
         v-model="email"
         :rules="[rules.email]"
         variant="filled"
@@ -87,7 +87,6 @@
       <v-spacer></v-spacer>
       <v-btn
         :disabled="!isValid || processing"
-        :loading="isLoading"
         color="deep-purple-accent-4"
         @click.prevent="signup"
       >
@@ -135,7 +134,6 @@
       dialog: false,
       email: undefined,
       isValid: false,
-      isLoading: false,
       password: undefined,
       phone: undefined,
       rules: {

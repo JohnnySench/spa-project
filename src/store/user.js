@@ -1,4 +1,4 @@
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 
 export default {
     state: {
@@ -21,6 +21,21 @@ export default {
             commit('SET_PROCESSING', true)
             const auth = getAuth();
             createUserWithEmailAndPassword(auth, payload.email, payload.password)
+            .then((userCredential) => {
+                commit('SET_PROCESSING', false)
+                commit('SET_USER', userCredential.user.uid)
+                console.log(userCredential.user.uid);
+            })
+            .catch((error) => {
+                commit('SET_PROCESSING', false)
+                commit('SET_ERROR', error.message)
+                console.log(error.message);
+            });
+        },
+        SIGNIN({commit}, payload) {
+            commit('SET_PROCESSING', true)
+            const auth = getAuth();
+            signInWithEmailAndPassword(auth, payload.email, payload.password)
             .then((userCredential) => {
                 commit('SET_PROCESSING', false)
                 commit('SET_USER', userCredential.user.uid)

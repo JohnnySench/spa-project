@@ -51,8 +51,12 @@
             }
         },  
         computed: {
+            isUserAuth() {
+                return this.$store.getters.getUserAuth
+            },
             menuItems() {
-                return [
+                return this.isUserAuth ?
+                 [
                     {
                         title: 'Читать',
                         route: '/books',
@@ -73,6 +77,19 @@
                         route: '/logout',
                         icon: 'mdi mdi-logout'
                     },
+                    
+                ] :
+                [
+                    {
+                        title: 'Читать',
+                        route: '/books',
+                        icon: 'mdi mdi-read'
+                    },
+                    {
+                        title: 'Учить слова',
+                        route: '/words',
+                        icon: 'mdi mdi-school-outline'
+                    },
                     {
                         title: 'Войти',
                         route: '/signin',
@@ -84,6 +101,7 @@
                         icon: 'mdi mdi-account-plus-outline'
                     }
                 ]
+
             }
         }
 

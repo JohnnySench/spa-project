@@ -19,20 +19,22 @@
             </v-toolbar>
         <v-form
             ref="form"
-            v-model="isValid"
             class="pa-4 pt-6"
         >
         <v-text-field
-            placeholder="Email address"
+            focused
+            v-model="email"
+            label="Введите email"
             prepend-icon="mdi-email-outline"
             variant="filled"
             type="email"
         ></v-text-field>
         <v-text-field
+            v-model="password"
             class="mb-5"
             :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
             :type="visible ? 'text' : 'password'"
-            placeholder="Enter your password"
+            label="Введите пароль"
             prepend-icon="mdi-lock-outline"
             variant="filled"
             @click:append-inner="visible = !visible"
@@ -47,10 +49,9 @@
       </v-btn>
       <v-spacer></v-spacer>
       <v-btn
-        :disabled="!isValid || processing"
-        :loading="isLoading"
+        :disabled="processing"
         color="deep-purple-accent-4"
-        @click.prevent="signup"
+        @click.prevent="signin"
       >
         Войти
       </v-btn>
@@ -66,11 +67,35 @@
   export default {
     data: () => ({
       visible: false,
+      email: undefined,
+      password: undefined,
     }),
     methods: {
         toSignup() {
             this.$router.push('/signup')
+        },
+        clearForm() {
+            this.$refs.form.reset()
+        },
+        signin() {
+            this.$store.dispatch('SIGNIN', {email: this.email, password: this.password})
         }
+    },
+    computed: {
+        error() {
+          return this.$store.getters.getError
+        },
+        processing() {
+          return this.$store.getters.getProcessing
+        },
+        isUserAuth() {
+          return this.$store.getters.getUserAuth
+        }
+    },
+    watch: {
+      isUserAuth(value) {
+        if (value) this.$router.push('/books')
+      }
     }
   }
 </script>
