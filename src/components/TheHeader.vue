@@ -12,7 +12,7 @@
                 <v-list-item 
                     :prepend-icon="item.icon" 
                     :title="item.title" 
-                    :value="item.route">
+                    :to="item.route">
                 </v-list-item>
             </v-list>
         </v-navigation-drawer>
